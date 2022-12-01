@@ -15,191 +15,132 @@ class verDocPDF {
     static show = "";
     static numPage = 0;
     static tab = "";
-    static loadDcoument(_url) {
+    static pdfDoc = null;
+    static pageNum = 1;
+    static pageRendering = false;
+    static pageNumPending = null;
+    static scale = 1.25;
+    static canvas = null;
+    static ctx = null;
+    static renderPage(num) {
+
+        verDocPDF.pageRendering = true;
+        // Using promise to fetch the page
+        verDocPDF.pdfDoc.getPage(num).then(function (page) {
+            var viewport = page.getViewport({
+                scale: verDocPDF.scale,
+            });
+            verDocPDF.canvas.height = viewport.height;
+            verDocPDF.canvas.width = viewport.width;
+            // Render PDF page into canvas context
+            var renderContext = {
+                canvasContext: verDocPDF.ctx,
+                viewport: viewport,
+            };
+            var renderTask = page.render(renderContext);
+            // Wait for rendering to finish
+            renderTask.promise.then(function () {
+                verDocPDF.pageRendering = false;
+                if (verDocPDF.pageNumPending !== null) {
+
+                    // New page rendering is pending
+                    verDocPDF.renderPage(verDocPDF.pageNumPending);
+                    verDocPDF.pageNumPending = null;
+
+                } else {
+
+                    $('.preloader').fadeOut('slow', function () {
+                        $(this).hide();
+                    });
+
+
+                    if (!(window.matchMedia('(min-width: 992px)').matches)) {
+
+                    } else {
+                        $('#render-pdf').css("width", "100%");
+                    }
+
+
+
+
+
+                }
+            });
+        });
+        // Update page counters
+        // document.getElementsByClassName('page_num').textContent = num;
+        $(".page_num").text(num);
+
+    }
+    static queueRenderPage(num) {
+        if (verDocPDF.pageRendering) {
+            verDocPDF.pageNumPending = num;
+        } else {
+            verDocPDF.renderPage(num);
+        }
+    }
+    static onPrevPage() {
+        if (verDocPDF.pageNum <= 1) {
+            return;
+        }
+        verDocPDF.pageNum--;
+        verDocPDF.queueRenderPage(verDocPDF.pageNum);
+    }
+    static onNextPage() {
+        if (verDocPDF.pageNum >= verDocPDF.pdfDoc.numPages) {
+            return;
+        }
+        verDocPDF.pageNum++;
+        verDocPDF.queueRenderPage(verDocPDF.pageNum);
+    }
+    static loadDocument(_url) {
 
         DetalleClinico.inZoom = "d-none";
         verDocPDF.url = _url;
         verDocPDF.show = "d-none";
         verDocPDF.tab = "active show";
 
-        var canvas = document.getElementById("render-pdf");
-
         setTimeout(function () {
-
-
 
             $(".doc-loader").show();
             $(".doc-content").hide();
             $(".doc-control").hide();
-
-
-
-
-
             // If absolute URL from the remote server is provided, configure the CORS
             // Loaded via <script> tag, create shortcut to access PDF.js exports.
             var pdfjsLib = window["pdfjs-dist/build/pdf"];
             // The workerSrc property shall be specified.
             pdfjsLib.GlobalWorkerOptions.workerSrc =
                 "assets/dashforge/lib/pdf.js/build/pdf.worker.js";
-            var pdfDoc = null,
-                pageNum = 1,
-                pageRendering = false,
-                pageNumPending = null,
-                scale = 1.25,
-                canvas = document.getElementById("render-pdf"),
-                ctx = canvas.getContext("2d")
-            /**
-             * Get page info from document, resize canvas accordingly, and render page.
-             * @param num Page number.
-             */
-            function renderPage(num) {
-                pageRendering = true;
-                // Using promise to fetch the page
-                pdfDoc.getPage(num).then(function (page) {
-                    var viewport = page.getViewport({
-                        scale: scale,
-                    });
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-                    // Render PDF page into canvas context
-                    var renderContext = {
-                        canvasContext: ctx,
-                        viewport: viewport,
-                    };
-                    var renderTask = page.render(renderContext);
-                    // Wait for rendering to finish
-                    renderTask.promise.then(function () {
-                        pageRendering = false;
-                        if (pageNumPending !== null) {
 
-                            // New page rendering is pending
-                            renderPage(pageNumPending);
-                            pageNumPending = null;
-
-                        } else {
-
-                            $('.preloader').fadeOut('slow', function () {
-                                $(this).hide();
-                            });
-
-
-                            if (!(window.matchMedia('(min-width: 992px)').matches)) {
-
-                            } else {
-                                $('#render-pdf').css("width", "100%");
-                            }
-
-
-
-                            $(".prev").click(function (e) {
-                                e.preventDefault();
-                                onPrevPage();
-                            });
-
-                            $(".next").click(function (e) {
-                                e.preventDefault();
-                                onNextPage();
-                            });
-
-
-
-                        }
-                    });
-                });
-                // Update page counters
-                // document.getElementsByClassName('page_num').textContent = num;
-                $(".page_num").text(num);
-            }
-            /**
-             * If another page rendering in progress, waits until the rendering is
-             * finised. Otherwise, executes rendering immediately.
-             */
-            function queueRenderPage(num) {
-                if (pageRendering) {
-                    pageNumPending = num;
-                } else {
-                    renderPage(num);
-                }
-            }
-            /**
-             * Displays previous page.
-             */
-            function onPrevPage() {
-                if (pageNum <= 1) {
-                    return;
-                }
-                pageNum--;
-                queueRenderPage(pageNum);
-            }
-            /*
-                                                                                                                                                                                                                                                                                  document.getElementsByClassName('prev').onclick = function(e) {
-                                                                                                                                                                                                                                                                                      e.preventDefault();
-                                                                                                                                                                                                                                                                                      onPrevPage();
-                                                                                                                                                                                                                                                                                  };
-                                                                                                                                                                                                                                                                                  */
-            $(".prev").click(function (e) {
-                e.preventDefault();
-                onPrevPage();
-            });
-            /**
-             * Displays next page.
-             */
-            function onNextPage() {
-                if (pageNum >= pdfDoc.numPages) {
-                    return;
-                }
-                pageNum++;
-                queueRenderPage(pageNum);
-            }
-            /*
-                                                                                                                                                                                                                                                                                  document.getElementsByClassName('next').onclick = function(e) {
-                                                                                                                                                                                                                                                                                      e.preventDefault();
-                                                                                                                                                                                                                                                                                      onNextPage();
-                                                                                                                                                                                                                                                                                  };
-                                                                                                                                                                                                                                                                                  */
-            $(".next").click(function (e) {
-                e.preventDefault();
-                onNextPage();
-            });
-            /**
-             * Asynchronously downloads PDF.
-             *
-             */
+            verDocPDF.canvas = document.getElementById("render-pdf");
+            verDocPDF.ctx = verDocPDF.canvas.getContext("2d");
 
             pdfjsLib
                 .getDocument({
                     url: verDocPDF.url,
                 })
                 .promise.then(function (pdfDoc_) {
-                    pdfDoc = pdfDoc_;
-                    $(".page_count").text(pdfDoc.numPages);
+                    verDocPDF.pdfDoc = pdfDoc_;
+                    $(".page_count").text(verDocPDF.pdfDoc.numPages);
 
                     // Initial/first page rendering
                     setTimeout(function () {
                         $(".doc-loader").hide();
                         $(".doc-content").show();
                         $(".doc-control").show();
-                        if (pdfDoc.numPages == 1) {
-
+                        if (verDocPDF.pdfDoc.numPages == 1) {
                             verDocPDF.numPage = 1;
                         }
-                        renderPage(pageNum);
+                        verDocPDF.renderPage(verDocPDF.pageNum);
                     }, 100);
 
-                    if (pdfDoc.numPages > 1) {
-
-                        verDocPDF.numPage = pdfDoc.numPages;
+                    if (verDocPDF.pdfDoc.numPages > 1) {
+                        verDocPDF.numPage = verDocPDF.pdfDoc.numPages;
                     }
                 });
 
 
         }, 900);
-
-
-
-
-
 
     }
 
@@ -211,7 +152,7 @@ class verDocPDF {
                 m("div.col-lg-12.text-center[id='docPDF']", [
                     m("div.doc-control.row.mb-0.p-0.w-100", [
 
-                        m("div.row.col-12.d-block.tx-14.tx-semibold", [
+                        m("div.row.col-12.d-block.text-light-dark", { style: { "font-size": "20px" } }, [
                             " Página: ",
                             m("span.page_num",),
                             " / ",
@@ -258,7 +199,7 @@ class Laboratorio {
         Laboratorio.loader = false;
         MenuBoton.typeDoc = 'LAB';
         verDocPDF.show = "";
-        verDocPDF.loadDcoument(url);
+        verDocPDF.loadDocument(url);
         m.redraw();
     }
     static fetchResultado(url) {
@@ -482,6 +423,7 @@ class MenuBoton {
     }
     onupdate(_data) {
         m.redraw();
+
     }
 
     view() {
@@ -558,9 +500,10 @@ class MenuBoton {
                 } else if (verDocPDF.numPage > 1) {
                     return [
                         m("div.button-menu-right-plus", { "style": { "display": "flex" } },
-                            m("a.next.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                            m("btn.next.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
                                 onclick: (e) => {
-                                    e.preventDefault();
+                                    verDocPDF.onNextPage();
+
 
 
                                 },
@@ -571,9 +514,10 @@ class MenuBoton {
                             )
                         ),
                         m("div.button-menu-left-plus", { "style": { "display": "flex" } },
-                            m("a.prev.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                            m("btn.prev.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
                                 onclick: (e) => {
-                                    e.preventDefault();
+                                    verDocPDF.onPrevPage();
+
 
 
                                 },

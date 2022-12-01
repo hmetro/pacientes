@@ -23,7 +23,7 @@ const Routes = {
     '/inicio': Inicio, //Inicio
     '/auth': Login, // Login
     '/pacientes': Pacientes, // Pacientes
-    '/resultados/paciente/:nhc': ResultadosPaciente, // Resultados de Paciente
+    '/resultados/paciente/:nhc': ResultadosPacientePrivate, // Resultados de Paciente
     '/resultados': ResultadosPacientePrivate, // Resultados de Paciente
     '/resultado/l/:id': VisorLab, // VisorLab
     '/resultado/i/:id': VisorImg, // VisorImg

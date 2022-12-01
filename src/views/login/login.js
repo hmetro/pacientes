@@ -10,8 +10,11 @@ class Login extends App {
     }
     oninit() {
         if (Auth.isLogin()) {
-            return m.route.set('/inicio');
+            window.location.href = 'https://www.hospitalmetropolitano.org/es/cuenta';
+
+            // return m.route.set('/inicio');
         }
+        window.location.href = 'https://www.hospitalmetropolitano.org/es/cuenta';
     }
     oncreate() {
         this.mainLayout();
@@ -19,16 +22,20 @@ class Login extends App {
 
     }
     view() {
+        window.location.href = 'https://www.hospitalmetropolitano.org/es/cuenta';
+
+        /*
         return [
             m(HeaderPublic),
             m(FormLogin),
             m(FooterPublic)
         ];
+        */
     }
 };
 
 function submitLogin() {
-    document.onkeypress = function(e) {
+    document.onkeypress = function (e) {
         if (!e) e = window.event;
         var keyCode = e.keyCode || e.which;
         if (keyCode == "13") {
