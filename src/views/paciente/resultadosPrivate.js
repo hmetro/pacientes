@@ -100,14 +100,14 @@ class Imagen {
                 } else {
                     verDocPDF.tabImagen = "active show";
                     verDocPDF.tab = "";
-                    Imagen.error = "Resultado no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
+                    Imagen.error = "Resultado definitivo no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
                     setTimeout(function() { Imagen.error = ""; }, 5000);
                 }
 
             })
             .catch(function(e) {
                 Imagen.loader = false;
-                Imagen.error = "Resultado no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
+                Imagen.error = "Resultado definitivo no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
                 verDocPDF.tabImagen = "active show";
                 verDocPDF.tab = "";
                 setTimeout(function() { Imagen.error = ""; }, 5000);
@@ -134,14 +134,14 @@ class Imagen {
                 } else {
                     verDocPDF.tabImagen = "active show";
                     verDocPDF.tab = "";
-                    Imagen.error = "Resultado no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
+                    Imagen.error = "Resultado definitivo no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
                     setTimeout(function() { Imagen.error = ""; }, 5000);
                 }
 
 
             }).catch(function(e) {
                 Imagen.loader = false;
-                Imagen.error = "Resultado no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
+                Imagen.error = "Resultado definitivo no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
                 verDocPDF.tabImagen = "active show";
                 verDocPDF.tab = "";
                 setTimeout(function() { Imagen.error = ""; }, 5000);
@@ -581,7 +581,7 @@ class Laboratorio {
                     verDocPDF.typeDoc = 'LAB';
                     verDocPDF.loadDocument(result.url);
                 } else {
-                    Laboratorio.error = "Resultado no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
+                    Laboratorio.error = "Resultado definitivo no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
                     verDocPDF.tab = "active show";
                     verDocPDF.tabImagen = "";
                     setTimeout(function() {
@@ -593,7 +593,7 @@ class Laboratorio {
             .catch(function(e) {
 
                 Laboratorio.loader = false;
-                Laboratorio.error = "Resultado no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
+                Laboratorio.error = "Resultado definitivo no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
                 verDocPDF.tab = "active show";
                 verDocPDF.tabImagen = "";
                 setTimeout(function() {
@@ -620,7 +620,7 @@ class Laboratorio {
                 if (result.status !== undefined && result.status) {
                     printJS(result.url)
                 } else {
-                    Laboratorio.error = "Resultado no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
+                    Laboratorio.error = "Resultado definitivo no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
                     verDocPDF.tab = "active show";
                     verDocPDF.tabImagen = "";
                     setTimeout(function() {
@@ -630,7 +630,7 @@ class Laboratorio {
 
             }).catch(function(e) {
                 Laboratorio.loader = false;
-                Laboratorio.error = "Resultado no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
+                Laboratorio.error = "Resultado definitivo no disponible. Comuníquese con nuestra Mesa de Ayuda CONCAS. Ext.: 2020";
                 verDocPDF.tab = "active show";
                 verDocPDF.tabImagen = "";
                 setTimeout(function() {
