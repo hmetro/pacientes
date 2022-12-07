@@ -7,16 +7,14 @@ class VisorRis {
     oninit() {
 
         m.request({
-            method: "POST",
-            url: "https://api.hospitalmetropolitano.org/t/v1/check-point-rx",
-            body: {
-                id: ViewerImg.id
-            },
-            headers: {
-                "Authorization": localStorage.accessToken,
-            },
-        })
-            .then(function (result) {
+                method: "POST",
+                url: "https://api.hospitalmetropolitano.org/t/v1/check-point-rx",
+                body: {
+                    id: ViewerImg.id
+                },
+
+            })
+            .then(function(result) {
 
                 if (result.status) {
                     VisorRis.idExamen = result.id;
@@ -27,7 +25,7 @@ class VisorRis {
                 }
 
             })
-            .catch(function (e) {
+            .catch(function(e) {
 
             });
 
@@ -52,7 +50,7 @@ class VisorRis {
                 m("div", [
 
 
-                    m("img.p-1.mt-10[src='assets/logo.metrovirtual.png'][alt='MetroVirtual'][width='150rem']"),
+                    m("img.p-1.mt-10[src='assets/logo.metrovirtual.png'][alt='Metrovirtual'][width='150rem']"),
 
                     m(".",
                         m("i.icofont-file-image.mr-2"),
@@ -64,8 +62,7 @@ class VisorRis {
 
                 ]),
             ),
-
-            m("div.button-menu-right-plus", { "style": { "display": (ViewerImg.hashId !== null ? "flex" : "none"), "right": "9rem" } },
+            m("div.button-menu-right-p1", { "style": { "display": (ViewerImg.hashId !== null ? "flex" : "none"), "right": "9rem" } },
                 m("a.btn.fadeInDown-slide.position-relative.animated.pl-4.pr-4.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2[href='/resultado/i/" + ViewerImg.hashId + "'][target='_blank']", {
 
                 }, [
@@ -76,15 +73,15 @@ class VisorRis {
                 ])
             ),
 
-            m("div.button-menu-right-plus", { "style": { "display": "flex" } },
+
+            m("div.button-menu-right-p1", { "style": { "display": "flex" } },
                 m("button.btn.fadeInDown-slide.position-relative.animated.pl-4.pr-4.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2[type='button']", {
                     onclick: () => {
                         alert('Si tienes inconvenientes con este resultado. Escríbenos a nuestra Mesa de Ayuda concas@hmetro.med.ec. Tel: 02 399 8000 Ext: 2020.');
                     },
                 }, [
                     m("i.icofont-question"),
-                    "Ayuda"
-
+                    " Ayuda "
                 ])
             ),
 
@@ -107,7 +104,6 @@ class ViewerImg extends App {
             ViewerImg.id = _data.attrs.id;
             let _params = m.parseQueryString(_data.attrs.id);
             ViewerImg.id = Object.keys(_params)[0];
-
             console.log(_params);
         }
 

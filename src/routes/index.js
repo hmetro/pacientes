@@ -22,7 +22,6 @@ const Routes = {
     '/': App,
     '/inicio': Inicio, //Inicio
     '/auth': Login, // Login
-    '/pacientes': Pacientes, // Pacientes
     '/resultados/paciente/:nhc': ResultadosPacientePrivate, // Resultados de Paciente
     '/resultados': ResultadosPacientePrivate, // Resultados de Paciente
     '/resultado/l/:id': VisorLab, // VisorLab

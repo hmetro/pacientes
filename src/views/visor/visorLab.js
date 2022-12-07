@@ -2,11 +2,13 @@ import App from '../app';
 import m from 'mithril';
 import Loader from '../loader';
 import printJS from 'print-js';
-import Auth from '../../models/auth';
 
-const ButtonHelp = {
-    help: false,
+class ButtonHelp {
+    static help = false;
+};
 
+class ButtonShare {
+    static help = false;
 };
 
 
@@ -14,7 +16,8 @@ class verDocPDF {
     static url = "";
     static show = "";
     static numPage = 0;
-    static tab = "";
+    static tab = "active show";
+    static tabImagen = "";
     static pdfDoc = null;
     static pageNum = 1;
     static pageRendering = false;
@@ -26,7 +29,7 @@ class verDocPDF {
 
         verDocPDF.pageRendering = true;
         // Using promise to fetch the page
-        verDocPDF.pdfDoc.getPage(num).then(function (page) {
+        verDocPDF.pdfDoc.getPage(num).then(function(page) {
             var viewport = page.getViewport({
                 scale: verDocPDF.scale,
             });
@@ -39,7 +42,7 @@ class verDocPDF {
             };
             var renderTask = page.render(renderContext);
             // Wait for rendering to finish
-            renderTask.promise.then(function () {
+            renderTask.promise.then(function() {
                 verDocPDF.pageRendering = false;
                 if (verDocPDF.pageNumPending !== null) {
 
@@ -49,7 +52,7 @@ class verDocPDF {
 
                 } else {
 
-                    $('.preloader').fadeOut('slow', function () {
+                    $('.preloader').fadeOut('slow', function() {
                         $(this).hide();
                     });
 
@@ -98,9 +101,8 @@ class verDocPDF {
         DetalleClinico.inZoom = "d-none";
         verDocPDF.url = _url;
         verDocPDF.show = "d-none";
-        verDocPDF.tab = "active show";
 
-        setTimeout(function () {
+        setTimeout(function() {
 
             $(".doc-loader").show();
             $(".doc-content").hide();
@@ -119,12 +121,12 @@ class verDocPDF {
                 .getDocument({
                     url: verDocPDF.url,
                 })
-                .promise.then(function (pdfDoc_) {
+                .promise.then(function(pdfDoc_) {
                     verDocPDF.pdfDoc = pdfDoc_;
                     $(".page_count").text(verDocPDF.pdfDoc.numPages);
 
                     // Initial/first page rendering
-                    setTimeout(function () {
+                    setTimeout(function() {
                         $(".doc-loader").hide();
                         $(".doc-content").show();
                         $(".doc-control").show();
@@ -154,9 +156,9 @@ class verDocPDF {
 
                         m("div.row.col-12.d-block.text-light-dark", { style: { "font-size": "20px" } }, [
                             " Página: ",
-                            m("span.page_num",),
+                            m("span.page_num", ),
                             " / ",
-                            m("span.page_count",)
+                            m("span.page_count", )
                         ]),
 
                     ]),
@@ -164,7 +166,7 @@ class verDocPDF {
                         m("div..col-12.pd-5",
                             m("div.preloader-inner",
                                 m("div.loader-content",
-                                    m("span.icon-section-wave.d-inline-block.text-active.mt-3.",),
+                                    m("span.icon-section-wave.d-inline-block.text-active.mt-3.", ),
                                 )
                             ),
                         )
@@ -188,6 +190,7 @@ class verDocPDF {
 
 }
 
+
 class Laboratorio {
     static data = [];
     static detalle = [];
@@ -204,22 +207,20 @@ class Laboratorio {
     }
     static fetchResultado(url) {
         m.request({
-            method: "GET",
-            url: url,
-            headers: {
-                "Authorization": localStorage.accessToken,
-            },
-        })
-            .then(function (result) {
+                method: "GET",
+                url: url,
+
+            })
+            .then(function(result) {
                 Laboratorio.loader = false;
                 if (result.status !== undefined && result.status) {
                     window.open(result.url);
                 } else {
                     Laboratorio.error = "Resultado no disponible.";
-                    setTimeout(function () { Laboratorio.error = ""; }, 5000);
+                    setTimeout(function() { Laboratorio.error = ""; }, 5000);
                 }
 
-            }).catch(function (e) {
+            }).catch(function(e) {
                 alert("Resultado no disponible.");
                 Laboratorio.loader = false;
                 verDocPDF.show = "";
@@ -231,22 +232,20 @@ class Laboratorio {
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         m.request({
-            method: "GET",
-            url: url,
-            headers: {
-                "Authorization": localStorage.accessToken,
-            },
-        })
-            .then(function (result) {
+                method: "GET",
+                url: url,
+
+            })
+            .then(function(result) {
                 Laboratorio.loader = false;
                 if (result.status !== undefined && result.status) {
                     printJS(result.url)
                 } else {
                     Laboratorio.error = "Resultado no disponible.";
-                    setTimeout(function () { Laboratorio.error = ""; }, 5000);
+                    setTimeout(function() { Laboratorio.error = ""; }, 5000);
                 }
 
-            }).catch(function (e) {
+            }).catch(function(e) {
                 alert("Resultado no disponible.");
                 Laboratorio.loader = false;
                 verDocPDF.show = "";
@@ -256,11 +255,13 @@ class Laboratorio {
     }
 
     oninit() {
+
         Laboratorio.data = DetalleClinico.data;
         Laboratorio.loader = true;
         Laboratorio.verResultado(DetalleClinico.data.url);
 
     }
+
     view() {
 
 
@@ -294,15 +295,15 @@ class Laboratorio {
                 ),
 
                 m("div", {
-                    class: (ButtonHelp.help ? '' : 'd-none')
-                },
+                        class: (ButtonHelp.help ? '' : 'd-none')
+                    },
                     m("div.row",
                         m("div.col-md-6.offset-md-3",
                             m("div.text-center", [
                                 m("h2.m-0.text-dark",
                                     "Ayuda"
                                 ),
-                                m("span.d-inline-block.mt-3.active", 'Opciones disponibles.')
+                                m("span.d-inline-block.mt-3.active", 'Opciones disponibles')
                             ])
                         )
                     ),
@@ -312,50 +313,114 @@ class Laboratorio {
                         m("div.col-12.pd-r-0.pd-l-0.pd-b-20",
                             m("div.row.m-mb-60.m-mt-10.", [
                                 m("div.col-12",
-                                    m("div.bg-white.mb-0.position-relative.has-float-icon.pt-4.pl-4.pb-4.pr-4.info-box.m-mtb-20.radius-5", [
-                                        m("div.features-circle.mb-3.m-bg-3.text-active.d-inline-flex.align-items-center.justify-content-center.rounded-circle",
-                                            m("i.icofont-page")
-                                        ),
-                                        m("h5.m-text-2.mb-3",
-                                            m("p.designation", [
-                                                " ¿Mi resultado tiene inconsitencias? ",
-                                            ]),
-                                        ),
+                                    m("div", {
+                                        style: { "cursor": "pointer" },
+                                        onclick: (e) => {
+                                            alert("Escríbanos a nuestra Mesa de Ayuda CONCAS. Tel: 02 399 8000 Ext.: 2020");
+                                            window.open("mailto:concas@hmetro.med.ec?subject=METRO%20VIRTUAL%20WEB%3A%20Mi%20resultado%20tiene%20inconsistencias&body=Mi%20resultado%20tiene%20inconsistencias.%0A%0AEnlace%20de%20Resultado%3A%0A" + encodeURI(window.location.href));
 
+                                        },
+                                    }, [
+                                        m("div.bg-white.mb-0.position-relative.has-float-icon.pt-4.pl-4.pb-4.pr-4.info-box.m-mtb-20.radius-5", [
+                                            m("div.features-circle.mb-3.m-bg-3.text-active.d-inline-flex.align-items-center.justify-content-center.rounded-circle",
+                                                m("i.icofont-page")
+                                            ),
+                                            m("h5.m-text-2.mb-3",
+                                                m("p.designation", [
+                                                    " ¿Mi resultado tiene inconsitencias? ",
+                                                ]),
+                                            ),
+
+                                        ]),
                                     ]),
-                                    m("div.bg-white.mb-0.position-relative.has-float-icon.pt-4.pl-4.pb-4.pr-4.info-box.m-mtb-20.radius-5", [
-                                        m("div.features-circle.mb-3.m-bg-3.text-active.d-inline-flex.align-items-center.justify-content-center.rounded-circle",
-                                            m("i.icofont-first-aid")
-                                        ),
-                                        m("h5.m-text-2.mb-3",
-                                            m("p.designation.", [
-                                                " Necesito un resultado anterior al 2019",
-                                            ]),
-                                        ),
 
-                                    ]),
-                                    m("div.bg-white.mb-0.position-relative.has-float-icon.pt-4.pl-4.pb-4.pr-4.info-box.m-mtb-20.radius-5", [
-                                        m("div.features-circle.mb-3.m-bg-3.text-active.d-inline-flex.align-items-center.justify-content-center.rounded-circle",
-                                            m("i.icofont-first-aid")
-                                        ),
-                                        m("h5.m-text-2.mb-3",
-                                            m("p.designation", [
-                                                " Necesito este resultado en físico (CD O USB). ",
-                                            ]),
-                                        ),
 
-                                    ])
                                 ),
 
 
                             ]),
-                            m("div.row",
-                                m("div.col-md-12.text-center.m-mb-50",
-                                    m("a.btn.bordered-blue.fadeInDown-slide.animated.medim-btn.btn-bordered.mt-0.text-medium.radius-pill.bg-transparent.text-active.text-uppercase.[href='#!/salir']",
-                                        " Salir "
-                                    )
-                                )
-                            )
+
+                        ),
+
+                    ])
+                ),
+                m("div", {
+                        class: (ButtonShare.help ? '' : 'd-none')
+                    },
+                    m("div.row",
+                        m("div.col-md-6.offset-md-3",
+                            m("div.text-center", [
+                                m("h2.m-0.text-dark",
+                                    "Compartir"
+                                ),
+                                m("span.d-inline-block.mt-3.active", 'Opciones disponibles')
+                            ])
+                        )
+                    ),
+
+
+                    m("div.row.m-pt-20.m-pb-60.m-mt-20", [
+                        m("div.col-12.pd-r-0.pd-l-0.pd-b-20",
+                            m("div.row.m-mb-60.m-mt-10.", [
+                                m("div.col-12",
+
+                                    m("div", {
+                                        style: { "cursor": "pointer" },
+                                        onclick: (e) => {
+
+                                            alert('Comparte este resultado por correo electrónico con quien lo necesites.');
+                                            let correo = prompt("Correo electrónico:");
+                                            if (correo != null) {
+                                                window.open("mailto:" + correo + "?subject=Te%20comparto%20mi%20resultado%20MetroVirtual&body=Te%20comparto%20mi%20resultado%20MetroVirtual.%0A%0AClic%20en%20este%20enlace%20para%20m%C3%A1s%20informaci%C3%B3n.%0A" + encodeURI(window.location.href));
+                                            }
+                                        },
+                                    }, [
+                                        m("div.bg-white.mb-0.position-relative.has-float-icon.pt-4.pl-4.pb-4.pr-4.info-box.m-mtb-20.radius-5", [
+                                            m("div.features-circle.mb-3.m-bg-3.text-active.d-inline-flex.align-items-center.justify-content-center.rounded-circle",
+                                                m("i.icofont-send-mail")
+                                            ),
+                                            m("h5.m-text-2.mb-3",
+                                                m("p.designation", [
+                                                    " Compartir por correo electrónico ",
+                                                ]),
+                                            ),
+
+                                        ]),
+                                    ]),
+
+                                    m("div", {
+                                        style: { "cursor": "pointer" },
+                                        onclick: (e) => {
+
+
+                                            alert('Comparte este resultado por Whatsapp con quien lo necesites.');
+                                            let celular = prompt("Número celular: Ej: 0998786402");
+                                            if (celular != null) {
+                                                let cel = celular.slice(1);
+                                                window.open("https://api.whatsapp.com/send?phone=593" + cel + "&text=Te%20comparto%20mi%20resultado%20MetroVirtual%0A%0AClic%20en%20este%20enlace%20para%20m%C3%A1s%20informaci%C3%B3n%3A%0A%0A" + encodeURI(window.location.href));
+                                            }
+                                        },
+                                    }, [
+                                        m("div.bg-white.mb-0.position-relative.has-float-icon.pt-4.pl-4.pb-4.pr-4.info-box.m-mtb-20.radius-5", [
+                                            m("div.features-circle.mb-3.m-bg-3.text-active.d-inline-flex.align-items-center.justify-content-center.rounded-circle",
+                                                m("i.icofont-whatsapp")
+                                            ),
+                                            m("h5.m-text-2.mb-3",
+                                                m("p.designation.", [
+                                                    " Compartir por Whatsapp",
+                                                ]),
+                                            ),
+
+                                        ])
+                                    ]),
+
+
+
+                                ),
+
+
+                            ]),
+
                         ),
 
                     ])
@@ -376,7 +441,7 @@ class Laboratorio {
                 ),
                 m("div.text-center", [
                     m("div.loader-content",
-                        m("span.icon-section-wave.d-inline-block.text-active.mt-3.",)
+                        m("span.icon-section-wave.d-inline-block.text-active.mt-3.", )
                     )
                 ])
             ]),
@@ -423,7 +488,6 @@ class MenuBoton {
     }
     onupdate(_data) {
         m.redraw();
-
     }
 
     view() {
@@ -435,58 +499,74 @@ class MenuBoton {
                 if (verDocPDF.numPage === 1) {
                     return [
 
-                        m("div.button-menu-right-plus", { "style": { "display": "flex" } }, [
+                        m("div.button-menu-right-p1", { "style": { "display": "flex" } }, [
                             m("div.text-primary.mr-2", "Descargar"),
                             m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                onclick: (e) => {
-                                    e.preventDefault();
+                                    onclick: (e) => {
+                                        e.preventDefault();
 
-                                    window.open(verDocPDF.url)
+                                        window.open(verDocPDF.url)
 
 
+                                    },
                                 },
-                            },
                                 m("i.icofont-download", { "style": { "font-size": "x-large" } })
                             )
                         ]),
                         ((!(window.matchMedia('(min-width: 1320px)').matches)) ? [
 
-                            m("div.button-menu-right-reload-pte", { "style": { "display": "flex" } }, [
+                            m("div.button-menu-right-p2", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Ayuda"),
                                 m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        ButtonHelp.help = !ButtonHelp.help;
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            ButtonShare.help = false;
+                                            ButtonHelp.help = !ButtonHelp.help;
+                                        },
                                     },
-                                },
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
                         ] : [
-                            m("div.button-menu-right-reload-pte", { "style": { "display": "flex" } }, [
+                            m("div.button-menu-right-p2", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Imprimir"),
                                 m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        printJS({
-                                            printable: verDocPDF.url,
-                                            type: 'pdf',
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            printJS({
+                                                printable: verDocPDF.url,
+                                                type: 'pdf',
 
-                                        })
+                                            })
 
+                                        },
                                     },
-                                },
                                     m("i.icofont-print", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
-                            m("div.button-menu-right-zoomin", { "style": { "display": "flex" } }, [
+                            m("div.button-menu-right-p3", { "style": { "display": "flex" } }, [
+                                m("div.text-primary.mr-2", "Compartir"),
+                                m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonHelp.help = false;
+                                            ButtonShare.help = !ButtonShare.help;
+                                        },
+                                    },
+                                    m("i.icofont-share", { "style": { "font-size": "x-large" } })
+                                )
+                            ]),
+                            m("div.button-menu-right-p4", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Ayuda"),
                                 m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        ButtonHelp.help = !ButtonHelp.help;
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonShare.help = false;
+                                            ButtonHelp.help = !ButtonHelp.help;
+                                        },
                                     },
-                                },
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
@@ -499,66 +579,117 @@ class MenuBoton {
                     ]
                 } else if (verDocPDF.numPage > 1) {
                     return [
-                        m("div.button-menu-right-plus", { "style": { "display": "flex" } },
-                            m("btn.next.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                onclick: (e) => {
-                                    verDocPDF.onNextPage();
+                        m("div.button-menu-right-p1", { "style": { "display": "flex" } },
+                            m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                    onclick: (e) => {
+                                        verDocPDF.onNextPage();
 
 
 
+                                    },
                                 },
-                            },
                                 m("i.fas.fa-chevron-circle-right"),
                                 " Pág. Sig. "
 
                             )
                         ),
                         m("div.button-menu-left-plus", { "style": { "display": "flex" } },
-                            m("btn.prev.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                onclick: (e) => {
-                                    verDocPDF.onPrevPage();
+                            m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                    onclick: (e) => {
+                                        verDocPDF.onPrevPage();
 
 
-
+                                    },
                                 },
-                            },
                                 m("i.fas.fa-chevron-circle-left"),
                                 " Pág. Ant. "
 
                             )
                         ),
-                        m("div.button-menu-right-reload-pte", { "style": { "display": "flex" } }, [
+                        m("div.button-menu-right-p2", { "style": { "display": "flex" } }, [
                             m("div.text-primary.mr-2", "Descargar"),
                             m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                onclick: (e) => {
-                                    e.preventDefault();
+                                    onclick: (e) => {
+                                        e.preventDefault();
 
-                                    window.open(verDocPDF.url)
+                                        window.open(verDocPDF.url)
 
 
+                                    },
                                 },
-                            },
                                 m("i.icofont-download", { "style": { "font-size": "x-large" } })
                             )
                         ]),
                         ((!(window.matchMedia('(min-width: 1320px)').matches)) ? [
 
+                            m("div.button-menu-right-p3", { "style": { "display": "flex" } }, [
+                                m("div.text-primary.mr-2", "Compartir"),
+                                m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonHelp.help = false;
+                                            ButtonShare.help = !ButtonShare.help;
+                                        },
+                                    },
+                                    m("i.icofont-share", { "style": { "font-size": "x-large" } })
+                                )
+                            ]),
+                            m("div.button-menu-right-p4", { "style": { "display": "flex" } }, [
+                                m("div.text-primary.mr-2", "Ayuda"),
+                                m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonShare.help = false;
+                                            ButtonHelp.help = !ButtonHelp.help;
+                                        },
+                                    },
+                                    m("i.icofont-question", { "style": { "font-size": "x-large" } })
+                                )
+                            ]),
 
                         ] : [
-                            m("div.button-menu-right-zoomin", { "style": { "display": "flex" } }, [
+                            m("div.button-menu-right-p3", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Imprimir"),
                                 m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        printJS({
-                                            printable: verDocPDF.url,
-                                            type: 'pdf',
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            printJS({
+                                                printable: verDocPDF.url,
+                                                type: 'pdf',
 
-                                        })
+                                            })
 
+                                        },
                                     },
-                                },
                                     m("i.icofont-print", { "style": { "font-size": "x-large" } })
+                                )
+                            ]),
+                            m("div.button-menu-right-p4", { "style": { "display": "flex" } }, [
+                                m("div.text-primary.mr-2", "Compartir"),
+                                m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonHelp.help = false;
+                                            ButtonShare.help = !ButtonShare.help;
+                                        },
+                                    },
+                                    m("i.icofont-share", { "style": { "font-size": "x-large" } })
+                                )
+                            ]),
+                            m("div.button-menu-right-p5", { "style": { "display": "flex" } }, [
+                                m("div.text-primary.mr-2", "Ayuda"),
+                                m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonShare.help = false;
+                                            ButtonHelp.help = !ButtonHelp.help;
+                                        },
+                                    },
+                                    m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
 
@@ -570,17 +701,17 @@ class MenuBoton {
                     ]
                 } else {
                     return [
-                        m("div.button-menu-right-plus", { "style": { "display": "flex" } }, [
-                            m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                onclick: (e) => {
-                                    e.preventDefault();
-                                    window.location.reload();
-                                },
-                            },
-                                m("i.icofont-refresh", { "style": { "font-size": "x-large" } })
-                            )
+                        m("div.button-menu-right-p1", { "style": { "display": "flex" } }, [
+                                m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.location.reload();
+                                        },
+                                    },
+                                    m("i.icofont-refresh", { "style": { "font-size": "x-large" } })
+                                )
 
-                        ]
+                            ]
 
                         ),
 
@@ -594,17 +725,17 @@ class MenuBoton {
 
         } else {
             return [
-                m("div.button-menu-right-plus", { "style": { "display": "flex" } }, [
-                    m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                        onclick: (e) => {
-                            e.preventDefault();
-                            window.location.reload();
-                        },
-                    },
-                        m("i.icofont-refresh", { "style": { "font-size": "x-large" } })
-                    )
+                m("div.button-menu-right-p1", { "style": { "display": "flex" } }, [
+                        m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                onclick: (e) => {
+                                    e.preventDefault();
+                                    window.location.reload();
+                                },
+                            },
+                            m("i.icofont-refresh", { "style": { "font-size": "x-large" } })
+                        )
 
-                ]
+                    ]
 
                 ),
 
@@ -613,15 +744,6 @@ class MenuBoton {
 
             ]
         }
-
-
-
-
-
-
-
-
-
 
     }
 };
@@ -645,13 +767,11 @@ class DetalleClinico {
         DetalleClinico.data = [];
         DetalleClinico.error = "";
         m.request({
-            method: "GET",
-            url: "https://api.hospitalmetropolitano.org/v2/pacientes/resultado/l/?id=" + VisorLab.id,
-            headers: {
-                "Authorization": localStorage.accessToken,
-            },
-        })
-            .then(function (result) {
+                method: "GET",
+                url: "https://api.hospitalmetropolitano.org/v2/pacientes/resultado/l/?id=" + VisorLab.id,
+
+            })
+            .then(function(result) {
 
                 if (result === null) {
                     DetalleClinico.fetch();
@@ -666,7 +786,7 @@ class DetalleClinico {
                 }
 
             })
-            .catch(function (e) {
+            .catch(function(e) {
                 DetalleClinico.fetch();
             })
     }
@@ -681,11 +801,11 @@ class DetalleClinico {
                 class: "m-bg-1",
             }, [
                 m("div.container", {
-                    class: "bg-white",
-                    style: {
-                        "height": "2500px"
-                    }
-                },
+                        class: "bg-white",
+                        style: {
+                            "height": "2500px"
+                        }
+                    },
                     m("div.row", [
 
                         m("div", {
@@ -722,9 +842,6 @@ class VisorLab extends App {
 
         this._setTitle = "Visor de Resultados";
 
-        if (!Auth.isLogin()) {
-            return m.route.set('/auth');
-        }
     }
 
 
