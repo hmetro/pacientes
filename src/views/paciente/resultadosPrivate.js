@@ -197,20 +197,7 @@ class Imagen {
                 ])
             ]);
         } else {
-            return Imagen.error ? [
-                m(".tab-pane.mt-5.fade." + verDocPDF.tabImagen + "[id='v-pills-imagen'][role='tabpanel']", [
-                    m("h4.m-text-2.",
-                        m("i.icofont-file-image.mr-2"),
-                        "Resultados de Imagen:"
-                    ),
-                    m("h6.text-light-dark.ff-roboto.pb-40.mb-0",
-                        "Hospital Metropolitano"
-                    ),
-                    m(".alert.alert-danger[role='alert']",
-                        Imagen.error
-                    )
-                ]),
-            ] : (Imagen.data.length !== 0) ? [
+            return [
                 m(".tab-pane.fade." + verDocPDF.tabImagen + "[id='v-pills-imagen'][role='tabpanel']", {
                     class: (verDocPDF.show.length == 0) ? "mt-0" : "mt-0",
                 }, [
@@ -219,18 +206,13 @@ class Imagen {
                     ]],
                     m("h4.m-text-2.",
                         m("i.icofont-file-image.mr-2"), [(verDocPDF.show.length == 0) ? "Resultados de Imagen:" : "Visor de Resultados:"]
-
                     ),
                     m("h6.text-light-dark.ff-roboto.pb-40.mb-0",
                         "Hospital Metropolitano"
                     ),
-
                     m("h6.mb-5." + verDocPDF.show, [
                         "Resultados disponibles desde Enero, 2019.",
-
-
                     ]),
-
                     m("div." + Imagen.showButtons + ".row.p-1",
                         m("div.col-md-12",
                             m("div.single-service.type-1.radius-10.position-relative.service-wrapper.s-dp-10-60.m-mb-50.", {
@@ -246,24 +228,28 @@ class Imagen {
                                 ])
                             )
                         ),
-                        m("div.col-md-12",
-                            m("div.single-service.type-1.radius-10.position-relative.service-wrapper.s-dp-10-60.m-mb-50.", {
-                                    onclick: () => {
-                                        Imagen.showResultados = "";
-                                        Imagen.showButtons = "d-none";
-                                        MenuBoton.update = "RX";
+                        (Imagen.data.length !== 0 ? [
+                            m("div.col-md-12",
+                                m("div.single-service.type-1.radius-10.position-relative.service-wrapper.s-dp-10-60.m-mb-50.", {
+                                        onclick: () => {
+                                            Imagen.showResultados = "";
+                                            Imagen.showButtons = "d-none";
+                                            MenuBoton.update = "RX";
+                                        },
+                                        "style": { "cursor": "pointer" }
                                     },
-                                    "style": { "cursor": "pointer" }
-                                },
-                                m("h4.text-dark2.mb-3.position-relative.pt-2",
-                                    "Ver Informes"
+                                    m("h4.text-dark2.mb-3.position-relative.pt-2",
+                                        "Ver Informes"
+                                    )
                                 )
+                            ),
+                        ] : [
+                            m(".alert.alert-danger[role='alert']",
+                                Imagen.error
                             )
-                        )
+                        ]),
                     ),
                     m("div." + Imagen.showResultados + ".row.p-1",
-
-
                         m("div.table-content.col-12.pd-r-0.pd-l-0.pd-b-20." + verDocPDF.show,
                             m("div.text-right", [
                                 m("button.capsul.fz-poppins.text-default.radius-pill.active", {
@@ -363,16 +349,11 @@ class Imagen {
 
                             ]),
                         ),
-
-
                     ),
 
-                ]),
-            ] : []
+                ])
+            ]
         }
-
-
-
 
     }
 
