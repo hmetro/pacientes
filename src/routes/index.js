@@ -12,6 +12,7 @@ import ResultadosPacientePrivate from '../views/paciente/resultadosPrivate';
 import VisorLab from '../views/visor/visorLab';
 import VisorImg from '../views/visor/visorImg';
 import ViewerImg from '../views/visor/viewerImg';
+import VisorQR from '../views/visor/qr';
 
 
 
@@ -26,6 +27,7 @@ const Routes = {
     '/resultados': ResultadosPacientePrivate, // Resultados de Paciente
     '/resultado/l/:id': VisorLab, // VisorLab
     '/resultado/i/:id': VisorImg, // VisorImg
+    '/perfil/qr/': VisorQR, // VisorQR
     '/viewer/:id': ViewerImg, // ViewerImg
     '/mi-perfil': MiPerfil, // MiPerfil
     '/salir': Salir, // Salir
