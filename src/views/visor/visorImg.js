@@ -519,7 +519,21 @@ class MenuBoton {
                         ]),
                         ((!(window.matchMedia('(min-width: 1320px)').matches)) ? [
 
+
                             m("div.button-menu-right-p2", { "style": { "display": "flex" } }, [
+                                m("div.text-primary.mr-2", "Compartir"),
+                                m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonHelp.help = false;
+                                            ButtonShare.help = !ButtonShare.help;
+                                        },
+                                    },
+                                    m("i.icofont-share", { "style": { "font-size": "x-large" } })
+                                )
+                            ]),
+                            m("div.button-menu-right-p3", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Ayuda"),
                                 m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
                                         onclick: (e) => {
