@@ -154,10 +154,10 @@ class verDocPDF {
                 m("div.col-lg-12.text-center[id='docPDF']", [
                     m("div.doc-control.row.mb-0.p-0.w-100", [
 
-                        m("div.row.col-12.d-block.text-light-dark", { style: { "font-size": "20px" } }, [
+                        m("div.row.col-12.d-block.text-danger", { style: { "font-size": "20px" } }, [
                             " Página: ",
                             m("span.page_num", ),
-                            " / ",
+                            " de ",
                             m("span.page_count", )
                         ]),
 
@@ -325,8 +325,8 @@ class Laboratorio {
                                             m("div.features-circle.mb-3.m-bg-3.text-active.d-inline-flex.align-items-center.justify-content-center.rounded-circle",
                                                 m("i.icofont-page")
                                             ),
-                                            m("h5.m-text-2.mb-3",
-                                                m("p.designation", [
+                                            m("h3.m-text-2.mb-3",
+                                                m(".", [
                                                     " ¿Mi resultado tiene inconsitencias? ",
                                                 ]),
                                             ),
@@ -379,8 +379,8 @@ class Laboratorio {
                                             m("div.features-circle.mb-3.m-bg-3.text-active.d-inline-flex.align-items-center.justify-content-center.rounded-circle",
                                                 m("i.icofont-send-mail")
                                             ),
-                                            m("h5.m-text-2.mb-3",
-                                                m("p.designation", [
+                                            m("h3.m-text-2.mb-3",
+                                                m(".", [
                                                     " Compartir por correo electrónico ",
                                                 ]),
                                             ),
@@ -405,8 +405,8 @@ class Laboratorio {
                                             m("div.features-circle.mb-3.m-bg-3.text-active.d-inline-flex.align-items-center.justify-content-center.rounded-circle",
                                                 m("i.icofont-whatsapp")
                                             ),
-                                            m("h5.m-text-2.mb-3",
-                                                m("p.designation.", [
+                                            m("h3.m-text-2.mb-3",
+                                                m(".", [
                                                     " Compartir por Whatsapp",
                                                 ]),
                                             ),

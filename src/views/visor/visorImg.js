@@ -152,13 +152,17 @@ class verDocPDF {
         if (verDocPDF.url.length !== 0) {
 
             return [
+
                 m("div.col-lg-12.text-center[id='docPDF']", [
+
+
                     m("div.doc-control.row.mb-0.p-0.w-100", [
 
-                        m("div.row.col-12.d-block.text-light-dark", { style: { "font-size": "20px" } }, [
+
+                        m("div.row.col-12.d-block.text-danger", { style: { "font-size": "20px" } }, [
                             " Página: ",
                             m("span.page_num", ),
-                            " / ",
+                            " de ",
                             m("span.page_count", )
                         ]),
 
@@ -200,7 +204,7 @@ class Imagen {
     static verResultado(url) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         Imagen.loader = false;
-        MenuBoton.typeDoc = 'LAB';
+        MenuBoton.typeDoc = 'RX';
         verDocPDF.show = "";
         verDocPDF.loadDocument(url);
         m.redraw();
@@ -327,8 +331,8 @@ class Imagen {
                                             m("div.features-circle.mb-3.m-bg-3.text-active.d-inline-flex.align-items-center.justify-content-center.rounded-circle",
                                                 m("i.icofont-page")
                                             ),
-                                            m("h5.m-text-2.mb-3",
-                                                m("p.designation", [
+                                            m("h3.m-text-2.mb-3",
+                                                m(".", [
                                                     " ¿Mi resultado tiene inconsitencias? ",
                                                 ]),
                                             ),
@@ -381,8 +385,8 @@ class Imagen {
                                             m("div.features-circle.mb-3.m-bg-3.text-active.d-inline-flex.align-items-center.justify-content-center.rounded-circle",
                                                 m("i.icofont-send-mail")
                                             ),
-                                            m("h5.m-text-2.mb-3",
-                                                m("p.designation", [
+                                            m("h3.m-text-2.mb-3",
+                                                m(".", [
                                                     " Compartir por correo electrónico ",
                                                 ]),
                                             ),
@@ -407,8 +411,8 @@ class Imagen {
                                             m("div.features-circle.mb-3.m-bg-3.text-active.d-inline-flex.align-items-center.justify-content-center.rounded-circle",
                                                 m("i.icofont-whatsapp")
                                             ),
-                                            m("h5.m-text-2.mb-3",
-                                                m("p.designation.", [
+                                            m("h3.m-text-2.mb-3",
+                                                m(".", [
                                                     " Compartir por Whatsapp",
                                                 ]),
                                             ),
@@ -427,7 +431,7 @@ class Imagen {
 
                     ])
                 ),
-                m("div.row.p-1",
+                m("div",
 
                     m(verDocPDF),
                 ),
@@ -465,40 +469,25 @@ class MenuBoton {
     static reload = "d-none";
     static zi = "";
     static update = "";
-    static typeDoc = "LAB";
+    static typeDoc = "RX";
     static setComand() {
 
-        if (MenuBoton.update == "SV") {
-            SignosVitales.fetch();
-        }
 
-        if (MenuBoton.update == "EV") {
-            Evoluciones.fetch();
-        }
-
-        if (MenuBoton.update == "LAB") {
-            Imagen.fetch();
-        }
 
         if (MenuBoton.update == "RX") {
             Imagen.fetch();
         }
 
-
-
-
     }
     onupdate(_data) {
         m.redraw();
-
-
     }
 
     view() {
 
         if (MenuBoton.show.length === 0) {
 
-            if (MenuBoton.typeDoc == 'LAB') {
+            if (MenuBoton.typeDoc == 'RX') {
 
                 if (verDocPDF.numPage === 1) {
                     return [
@@ -545,6 +534,19 @@ class MenuBoton {
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
+                            (window.opener ? [
+                                m("div.button-menu-right-p4", { "style": { "display": "flex" } }, [
+                                    m("div.text-primary.mr-2", "Cerrar"),
+                                    m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                            onclick: (e) => {
+                                                window.close();
+                                            },
+                                        },
+                                        m("i.icofont-close", { "style": { "font-size": "x-large" } })
+                                    )
+                                ])
+                            ] : []),
+
                         ] : [
                             m("div.button-menu-right-p2", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Imprimir"),
@@ -588,8 +590,22 @@ class MenuBoton {
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
+                            (window.opener ? [
+                                m("div.button-menu-right-p5", { "style": { "display": "flex" } }, [
+                                    m("div.text-primary.mr-2", "Cerrar"),
+                                    m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                            onclick: (e) => {
+                                                window.close();
+                                            },
+                                        },
+                                        m("i.icofont-close", { "style": { "font-size": "x-large" } })
+                                    )
+                                ])
+                            ] : []),
+
 
                         ]),
+
 
 
 
@@ -666,6 +682,19 @@ class MenuBoton {
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
+                            (window.opener ? [
+                                m("div.button-menu-right-p5", { "style": { "display": "flex" } }, [
+                                    m("div.text-primary.mr-2", "Cerrar"),
+                                    m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                            onclick: (e) => {
+                                                window.close();
+                                            },
+                                        },
+                                        m("i.icofont-close", { "style": { "font-size": "x-large" } })
+                                    )
+                                ])
+                            ] : []),
+
 
                         ] : [
                             m("div.button-menu-right-p3", { "style": { "display": "flex" } }, [
@@ -710,8 +739,21 @@ class MenuBoton {
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
-
+                            (window.opener ? [
+                                m("div.button-menu-right-p6", { "style": { "display": "flex" } }, [
+                                    m("div.text-primary.mr-2", "Cerrar"),
+                                    m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                            onclick: (e) => {
+                                                window.close();
+                                            },
+                                        },
+                                        m("i.icofont-close", { "style": { "font-size": "x-large" } })
+                                    )
+                                ])
+                            ] : []),
                         ]),
+
+
 
 
 
@@ -822,9 +864,7 @@ class DetalleClinico {
             }, [
                 m("div.container", {
                         class: "bg-white",
-                        style: {
-                            "height": "2500px"
-                        }
+
                     },
                     m("div.row", [
 
