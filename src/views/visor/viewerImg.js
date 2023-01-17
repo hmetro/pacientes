@@ -18,14 +18,14 @@ class VisorRis {
 
 
         m.request({
-                method: "POST",
-                url: "https://api.hospitalmetropolitano.org/t/v1/check-point-rx",
-                body: {
-                    id: ViewerImg.id
-                },
+            method: "POST",
+            url: "https://api.hospitalmetropolitano.org/t/v1/check-point-rx",
+            body: {
+                id: ViewerImg.id
+            },
 
-            })
-            .then(function(result) {
+        })
+            .then(function (result) {
 
                 if (result.status) {
                     VisorRis.idExamen = result.id;
@@ -39,7 +39,7 @@ class VisorRis {
                 }
 
             })
-            .catch(function(e) {
+            .catch(function (e) {
 
             });
 
@@ -51,8 +51,8 @@ class VisorRis {
 
         return [
             m("div.p-4", {
-                    class: (VisorRis.loader ? '' : 'd-none')
-                },
+                class: (VisorRis.loader ? '' : 'd-none')
+            },
                 m("div.row",
                     m("div.col-md-6.offset-md-3",
                         m("div.text-center", [
@@ -108,13 +108,13 @@ class VisorRis {
                                         ),
                                         m("div.text-center.mb-3", [
                                             m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                                    style: {
-                                                        "cursor": "pointer"
-                                                    },
-                                                    onclick: (e) => {
-                                                        VisorRis.loader = false;
-                                                    },
+                                                style: {
+                                                    "cursor": "pointer"
                                                 },
+                                                onclick: (e) => {
+                                                    VisorRis.loader = false;
+                                                },
+                                            },
                                                 m("i.icofont-hand-right.mr-2", { "style": { "font-size": "x-large" } }),
                                                 " Continuar"
                                             )
@@ -152,7 +152,7 @@ class VisorRis {
                         "style": {
                             "frameborder": "0",
                             "width": "100%",
-                            "height": "85vh"
+                            "height": "70vh"
                         }
                     }),
 
@@ -161,8 +161,8 @@ class VisorRis {
 
 
             m("div.p-4", {
-                    class: (ButtonHelp.help ? '' : 'd-none')
-                },
+                class: (ButtonHelp.help ? '' : 'd-none')
+            },
                 m("div.row",
                     m("div.col-md-6.offset-md-3",
                         m("div.text-center", [
@@ -211,8 +211,8 @@ class VisorRis {
                 ])
             ),
             m("div.p-4", {
-                    class: (ButtonShare.help ? '' : 'd-none')
-                },
+                class: (ButtonShare.help ? '' : 'd-none')
+            },
                 m("div.row",
                     m("div.col-md-6.offset-md-3",
                         m("div.text-center", [
@@ -292,42 +292,35 @@ class VisorRis {
                 ])
             ),
 
-            m("div.text-center", { "style": { "display": (!VisorRis.loader && ViewerImg.hashId !== null ? "block" : "none"), "right": "9rem" } }, [
-                    m("a.btn.fadeInDown-slide.position-relative.animated.mr-2.pl-4.pr-4.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2[href='/resultado/i/" + ViewerImg.hashId + "'][target='_blank']", {
+            m("div.text-center", { "style": { "display": (!VisorRis.loader && ViewerImg.hashId !== null ? "block" : "none"), "right": "9rem", "margin-bottom": "150px" } }, [
+                m("a.btn.fadeInDown-slide.position-relative.animated.mr-2.pl-4.pr-4.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2[href='/resultado/i/" + ViewerImg.hashId + "'][target='_blank']", {
 
-                    }, [
-                        m("i.icofont-file-alt.mr-2"),
+                }, [
+                    m("i.icofont-file-alt.mr-2"),
 
-                        " Ver Informe"
+                    " Ver Informe"
 
-                    ]),
-                    m("button.btn.fadeInDown-slide.position-relative.animated.pl-4.pr-4.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2[href='/resultado/i/" + ViewerImg.hashId + "'][target='_blank']", {
-                        onclick: (e) => {
-                            ButtonHelp.help = false;
-                            ButtonShare.help = !ButtonShare.help;
-                        }
-                    }, [
-                        m("i.icofont-share.mr-2"),
+                ]),
+                m("button.btn.fadeInDown-slide.position-relative.animated.pl-4.pr-4.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2[href='/resultado/i/" + ViewerImg.hashId + "'][target='_blank']", {
+                    onclick: (e) => {
+                        ButtonHelp.help = false;
+                        ButtonShare.help = !ButtonShare.help;
+                    }
+                }, [
+                    m("i.icofont-share.mr-2"),
 
-                        "Compartir"
+                    "Compartir"
 
-                    ])
-                ]
+                ])
+            ]
 
             ),
             m("div.button-menu-left-copy.mt-10", { "style": { "display": "flex" } },
                 m("div", [
 
 
-                    m("img.p-1.mt-10[src='assets/logo.metrovirtual.png'][alt='Metrovirtual'][width='150rem']"),
+                    m("img.pb-5.mt-10[src='assets/logo.metrovirtual.png'][alt='Metrovirtual'][width='150rem']"),
 
-                    m(".",
-                        m("i.icofont-file-image.mr-2"),
-                        "Visor de Resultados"
-                    ),
-                    m("h6.text-light-dark.ff-roboto",
-                        "Hospital Metropolitano"
-                    ),
 
                 ]),
             ),
