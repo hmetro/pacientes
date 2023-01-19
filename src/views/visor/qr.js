@@ -750,9 +750,7 @@ class DetalleClinico {
             }, [
                 m("div.container", {
                         class: "bg-white",
-                        style: {
-                            "height": "2500px"
-                        }
+
                     },
                     m("div.row", [
 

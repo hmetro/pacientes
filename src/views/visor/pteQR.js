@@ -29,7 +29,7 @@ class verDocPDF {
 
         verDocPDF.pageRendering = true;
         // Using promise to fetch the page
-        verDocPDF.pdfDoc.getPage(num).then(function (page) {
+        verDocPDF.pdfDoc.getPage(num).then(function(page) {
             var viewport = page.getViewport({
                 scale: verDocPDF.scale,
             });
@@ -42,7 +42,7 @@ class verDocPDF {
             };
             var renderTask = page.render(renderContext);
             // Wait for rendering to finish
-            renderTask.promise.then(function () {
+            renderTask.promise.then(function() {
                 verDocPDF.pageRendering = false;
                 if (verDocPDF.pageNumPending !== null) {
 
@@ -52,7 +52,7 @@ class verDocPDF {
 
                 } else {
 
-                    $('.preloader').fadeOut('slow', function () {
+                    $('.preloader').fadeOut('slow', function() {
                         $(this).hide();
                     });
 
@@ -102,7 +102,7 @@ class verDocPDF {
         verDocPDF.url = _url;
         verDocPDF.show = "d-none";
 
-        setTimeout(function () {
+        setTimeout(function() {
 
             $(".doc-loader").show();
             $(".doc-content").hide();
@@ -121,12 +121,12 @@ class verDocPDF {
                 .getDocument({
                     url: verDocPDF.url,
                 })
-                .promise.then(function (pdfDoc_) {
+                .promise.then(function(pdfDoc_) {
                     verDocPDF.pdfDoc = pdfDoc_;
                     $(".page_count").text(verDocPDF.pdfDoc.numPages);
 
                     // Initial/first page rendering
-                    setTimeout(function () {
+                    setTimeout(function() {
                         $(".doc-loader").hide();
                         $(".doc-content").show();
                         $(".doc-control").show();
@@ -156,9 +156,9 @@ class verDocPDF {
 
                         m("div.row.col-12.d-block.text-light-dark", { style: { "font-size": "20px" } }, [
                             " Página: ",
-                            m("span.page_num",),
+                            m("span.page_num", ),
                             " / ",
-                            m("span.page_count",)
+                            m("span.page_count", )
                         ]),
 
                     ]),
@@ -166,7 +166,7 @@ class verDocPDF {
                         m("div..col-12.pd-5",
                             m("div.preloader-inner",
                                 m("div.loader-content",
-                                    m("span.icon-section-wave.d-inline-block.text-active.mt-3.",),
+                                    m("span.icon-section-wave.d-inline-block.text-active.mt-3.", ),
                                 )
                             ),
                         )
@@ -207,20 +207,20 @@ class _QR {
     }
     static fetchResultado(url) {
         m.request({
-            method: "GET",
-            url: url,
+                method: "GET",
+                url: url,
 
-        })
-            .then(function (result) {
+            })
+            .then(function(result) {
                 _QR.loader = false;
                 if (result.status !== undefined && result.status) {
                     window.open(result.url);
                 } else {
                     _QR.error = "Resultado no disponible.";
-                    setTimeout(function () { _QR.error = ""; }, 5000);
+                    setTimeout(function() { _QR.error = ""; }, 5000);
                 }
 
-            }).catch(function (e) {
+            }).catch(function(e) {
                 alert("Resultado no disponible.");
                 _QR.loader = false;
                 verDocPDF.show = "";
@@ -232,20 +232,20 @@ class _QR {
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         m.request({
-            method: "GET",
-            url: url,
+                method: "GET",
+                url: url,
 
-        })
-            .then(function (result) {
+            })
+            .then(function(result) {
                 _QR.loader = false;
                 if (result.status !== undefined && result.status) {
                     printJS(result.url)
                 } else {
                     _QR.error = "Resultado no disponible.";
-                    setTimeout(function () { _QR.error = ""; }, 5000);
+                    setTimeout(function() { _QR.error = ""; }, 5000);
                 }
 
-            }).catch(function (e) {
+            }).catch(function(e) {
                 alert("Resultado no disponible.");
                 _QR.loader = false;
                 verDocPDF.show = "";
@@ -312,8 +312,8 @@ class _QR {
                 ),
 
                 m("div", {
-                    class: (ButtonHelp.help ? '' : 'd-none')
-                },
+                        class: (ButtonHelp.help ? '' : 'd-none')
+                    },
                     m("div.row",
                         m("div.col-md-6.offset-md-3",
                             m("div.text-center", [
@@ -386,7 +386,7 @@ class _QR {
                 ),
                 m("div.text-center", [
                     m("div.loader-content",
-                        m("span.icon-section-wave.d-inline-block.text-active.mt-3.",)
+                        m("span.icon-section-wave.d-inline-block.text-active.mt-3.", )
                     )
                 ])
             ]),
@@ -437,14 +437,14 @@ class MenuBoton {
                         m("div.button-menu-right-p1", { "style": { "display": "flex" } }, [
                             m("div.text-primary.mr-2", "Descargar"),
                             m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                onclick: (e) => {
-                                    e.preventDefault();
+                                    onclick: (e) => {
+                                        e.preventDefault();
 
-                                    window.open(verDocPDF.url)
+                                        window.open(verDocPDF.url)
 
 
+                                    },
                                 },
-                            },
                                 m("i.icofont-download", { "style": { "font-size": "x-large" } })
                             )
                         ]),
@@ -453,12 +453,12 @@ class MenuBoton {
                             m("div.button-menu-right-p2", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Ayuda"),
                                 m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        ButtonShare.help = false;
-                                        ButtonHelp.help = !ButtonHelp.help;
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            ButtonShare.help = false;
+                                            ButtonHelp.help = !ButtonHelp.help;
+                                        },
                                     },
-                                },
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
@@ -466,42 +466,42 @@ class MenuBoton {
                             m("div.button-menu-right-p2", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Imprimir"),
                                 m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        printJS({
-                                            printable: verDocPDF.url,
-                                            type: 'pdf',
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            printJS({
+                                                printable: verDocPDF.url,
+                                                type: 'pdf',
 
-                                        })
+                                            })
 
+                                        },
                                     },
-                                },
                                     m("i.icofont-print", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
                             m("div.button-menu-right-p3", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Compartir"),
                                 m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                                        ButtonHelp.help = false;
-                                        ButtonShare.help = !ButtonShare.help;
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonHelp.help = false;
+                                            ButtonShare.help = !ButtonShare.help;
+                                        },
                                     },
-                                },
                                     m("i.icofont-share", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
                             m("div.button-menu-right-p4", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Ayuda"),
                                 m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                                        ButtonShare.help = false;
-                                        ButtonHelp.help = !ButtonHelp.help;
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonShare.help = false;
+                                            ButtonHelp.help = !ButtonHelp.help;
+                                        },
                                     },
-                                },
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
@@ -516,13 +516,13 @@ class MenuBoton {
                     return [
                         m("div.button-menu-right-p1", { "style": { "display": "flex" } },
                             m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                onclick: (e) => {
-                                    verDocPDF.onNextPage();
+                                    onclick: (e) => {
+                                        verDocPDF.onNextPage();
 
 
 
+                                    },
                                 },
-                            },
                                 m("i.fas.fa-chevron-circle-right"),
                                 " Pág. Sig. "
 
@@ -530,12 +530,12 @@ class MenuBoton {
                         ),
                         m("div.button-menu-left-plus", { "style": { "display": "flex" } },
                             m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                onclick: (e) => {
-                                    verDocPDF.onPrevPage();
+                                    onclick: (e) => {
+                                        verDocPDF.onPrevPage();
 
 
+                                    },
                                 },
-                            },
                                 m("i.fas.fa-chevron-circle-left"),
                                 " Pág. Ant. "
 
@@ -544,14 +544,14 @@ class MenuBoton {
                         m("div.button-menu-right-p2", { "style": { "display": "flex" } }, [
                             m("div.text-primary.mr-2", "Descargar"),
                             m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                onclick: (e) => {
-                                    e.preventDefault();
+                                    onclick: (e) => {
+                                        e.preventDefault();
 
-                                    window.open(verDocPDF.url)
+                                        window.open(verDocPDF.url)
 
 
+                                    },
                                 },
-                            },
                                 m("i.icofont-download", { "style": { "font-size": "x-large" } })
                             )
                         ]),
@@ -560,26 +560,26 @@ class MenuBoton {
                             m("div.button-menu-right-p3", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Compartir"),
                                 m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                                        ButtonHelp.help = false;
-                                        ButtonShare.help = !ButtonShare.help;
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonHelp.help = false;
+                                            ButtonShare.help = !ButtonShare.help;
+                                        },
                                     },
-                                },
                                     m("i.icofont-share", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
                             m("div.button-menu-right-p4", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Ayuda"),
                                 m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                                        ButtonShare.help = false;
-                                        ButtonHelp.help = !ButtonHelp.help;
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonShare.help = false;
+                                            ButtonHelp.help = !ButtonHelp.help;
+                                        },
                                     },
-                                },
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
@@ -588,42 +588,42 @@ class MenuBoton {
                             m("div.button-menu-right-p3", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Imprimir"),
                                 m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        printJS({
-                                            printable: verDocPDF.url,
-                                            type: 'pdf',
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            printJS({
+                                                printable: verDocPDF.url,
+                                                type: 'pdf',
 
-                                        })
+                                            })
 
+                                        },
                                     },
-                                },
                                     m("i.icofont-print", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
                             m("div.button-menu-right-p4", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Compartir"),
                                 m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                                        ButtonHelp.help = false;
-                                        ButtonShare.help = !ButtonShare.help;
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonHelp.help = false;
+                                            ButtonShare.help = !ButtonShare.help;
+                                        },
                                     },
-                                },
                                     m("i.icofont-share", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
                             m("div.button-menu-right-p5", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Ayuda"),
                                 m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                    onclick: (e) => {
-                                        e.preventDefault();
-                                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                                        ButtonShare.help = false;
-                                        ButtonHelp.help = !ButtonHelp.help;
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonShare.help = false;
+                                            ButtonHelp.help = !ButtonHelp.help;
+                                        },
                                     },
-                                },
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
@@ -637,16 +637,16 @@ class MenuBoton {
                 } else {
                     return [
                         m("div.button-menu-right-p1", { "style": { "display": "flex" } }, [
-                            m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                onclick: (e) => {
-                                    e.preventDefault();
-                                    window.location.reload();
-                                },
-                            },
-                                m("i.icofont-refresh", { "style": { "font-size": "x-large" } })
-                            )
+                                m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.location.reload();
+                                        },
+                                    },
+                                    m("i.icofont-refresh", { "style": { "font-size": "x-large" } })
+                                )
 
-                        ]
+                            ]
 
                         ),
 
@@ -661,16 +661,16 @@ class MenuBoton {
         } else {
             return [
                 m("div.button-menu-right-p1", { "style": { "display": "flex" } }, [
-                    m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                        onclick: (e) => {
-                            e.preventDefault();
-                            window.location.reload();
-                        },
-                    },
-                        m("i.icofont-refresh", { "style": { "font-size": "x-large" } })
-                    )
+                        m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                onclick: (e) => {
+                                    e.preventDefault();
+                                    window.location.reload();
+                                },
+                            },
+                            m("i.icofont-refresh", { "style": { "font-size": "x-large" } })
+                        )
 
-                ]
+                    ]
 
                 ),
 
@@ -702,14 +702,14 @@ class DetalleClinico {
         DetalleClinico.data = [];
         DetalleClinico.error = "";
         m.request({
-            method: "POST",
-            url: "https://api.hospitalmetropolitano.org/t/v1/generate-qr-perfil-pte",
-            body: {
-                nhc: VisorPTEQR.nhc
-            }
+                method: "POST",
+                url: "https://api.hospitalmetropolitano.org/t/v1/generate-qr-perfil-pte",
+                body: {
+                    nhc: VisorPTEQR.nhc
+                }
 
-        })
-            .then(function (result) {
+            })
+            .then(function(result) {
 
                 if (result === null) {
                     DetalleClinico.fetch();
@@ -724,7 +724,7 @@ class DetalleClinico {
                 }
 
             })
-            .catch(function (e) {
+            .catch(function(e) {
                 DetalleClinico.fetch();
             })
     }
@@ -739,11 +739,9 @@ class DetalleClinico {
                 class: "m-bg-1",
             }, [
                 m("div.container", {
-                    class: "bg-white",
-                    style: {
-                        "height": "2500px"
-                    }
-                },
+                        class: "bg-white",
+
+                    },
                     m("div.row", [
 
                         m("div", {

@@ -345,7 +345,7 @@ class Laboratorio {
                                             ),
                                             m("h3.m-text-2.mb-3",
                                                 m(".", [
-                                                    " ¿Mi resultado tiene inconsitencias? ",
+                                                    " ¿Mi resultado tiene inconsistencias? ",
                                                 ]),
                                             ),
 
