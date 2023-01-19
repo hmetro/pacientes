@@ -71,10 +71,8 @@ class verDocPDF {
                     });
 
 
-                    if (!(window.matchMedia('(min-width: 992px)').matches)) {
-
-                    } else {
-                        verDocPDF.canvas.style.width = "100%";
+                    if (!(window.matchMedia('(min-width: 992px)').matches)) {} else {
+                        document.getElementById("render-pdf").style.width = "100%";
                     }
 
 
@@ -176,17 +174,17 @@ class verDocPDF {
 
             return [
 
-                m("div.col-lg-12.text-center[id='docPDF']", [
+                m("div.col-12[id='docPDF']", [
 
 
-                    m("div.doc-control.row.mb-0.p-0.w-100", [
+                    m("div.text-center.doc-control.mb-0.p-0.w-100.mb-2", [
 
 
-                        m("div.row.col-12.d-block.text-danger", { style: { "font-size": "20px" } }, [
+                        m("div.text-danger", { style: { "font-size": "20px" } }, [
                             " Página: ",
-                            m("span.page_num", ),
+                            m("span.page_num"),
                             " de ",
-                            m("span.page_count", )
+                            m("span.page_count")
                         ]),
 
 
@@ -207,23 +205,12 @@ class verDocPDF {
                                 "style": {
                                     "width": "100%",
                                     "height": "100%",
-                                    "overflow-y": "scroll",
+                                    "overflow-y": (!(window.matchMedia('(min-width: 992px)').matches) ? "scroll" : "none"),
                                 },
                             },
                             m("canvas[id='render-pdf']", {
                                 style: { "border": "2px solid #c4d1fa" },
-                                onclick: (e) => {
-                                    if (!(window.matchMedia('(min-width: 1320px)').matches)) {
 
-                                        verDocPDF.ampliar = !verDocPDF.ampliar;
-
-
-
-
-
-
-                                    }
-                                }
                             })
                         )
                     ),
@@ -340,8 +327,12 @@ class Imagen {
 
 
                 m("div.row", [
-                    m("div.text-left.w-50", [
-                        m("img.m-3.d-inline[src='assets/logo.metrovirtual.png'][alt='Metrovirtual'][width='200rem']"),
+                    m("div.text-center.w-100", [
+                        m("img.m-1.d-inline[src='assets/logo.metrovirtual.png'][alt='Metrovirtual'][width='200rem']"),
+                        m("p.m-text-2.p-0.m-0",
+                            m("i.icofont-image.mr-2"), "Visor de Resultados:"
+
+                        ),
 
                     ])
 
@@ -419,7 +410,6 @@ class Imagen {
                         m("div.col-12.pd-r-0.pd-l-0.pd-b-20",
                             m("div.row.m-mb-60.m-mt-10.", [
                                 m("div.col-12",
-
                                     m("div", {
                                         style: { "cursor": "pointer" },
                                         onclick: (e) => {
@@ -443,7 +433,6 @@ class Imagen {
 
                                         ]),
                                     ]),
-
                                     m("div", {
                                         style: { "cursor": "pointer" },
                                         onclick: (e) => {
@@ -469,9 +458,6 @@ class Imagen {
 
                                         ])
                                     ]),
-
-
-
                                 ),
 
 
@@ -557,45 +543,42 @@ class MenuBoton {
                             )
                         ]),
                         ((!(window.matchMedia('(min-width: 1320px)').matches)) ? [
-
-                            (!verDocPDF.ampliar ? [
-                                m("div.button-menu-right-p2", { "style": { "display": "flex" } }, [
-                                    m("div.text-primary.mr-2", "Compartir"),
+                            m("div.button-menu-right-p2", { "style": { "display": "flex" } }, [
+                                m("div.text-primary.mr-2", "Compartir"),
+                                m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                                            ButtonHelp.help = false;
+                                            ButtonShare.help = !ButtonShare.help;
+                                        },
+                                    },
+                                    m("i.icofont-share", { "style": { "font-size": "x-large" } })
+                                )
+                            ]),
+                            m("div.button-menu-right-p3", { "style": { "display": "flex" } }, [
+                                m("div.text-primary.mr-2", "Ayuda"),
+                                m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                        onclick: (e) => {
+                                            e.preventDefault();
+                                            ButtonShare.help = false;
+                                            ButtonHelp.help = !ButtonHelp.help;
+                                        },
+                                    },
+                                    m("i.icofont-question", { "style": { "font-size": "x-large" } })
+                                )
+                            ]),
+                            (window.opener ? [
+                                m("div.button-menu-right-p4", { "style": { "display": "flex" } }, [
+                                    m("div.text-primary.mr-2", "Cerrar"),
                                     m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
                                             onclick: (e) => {
-                                                e.preventDefault();
-                                                window.scrollTo({ top: 0, behavior: 'smooth' });
-                                                ButtonHelp.help = false;
-                                                ButtonShare.help = !ButtonShare.help;
+                                                window.close();
                                             },
                                         },
-                                        m("i.icofont-share", { "style": { "font-size": "x-large" } })
+                                        m("i.icofont-close", { "style": { "font-size": "x-large" } })
                                     )
-                                ]),
-                                m("div.button-menu-right-p3", { "style": { "display": "flex" } }, [
-                                    m("div.text-primary.mr-2", "Ayuda"),
-                                    m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                            onclick: (e) => {
-                                                e.preventDefault();
-                                                ButtonShare.help = false;
-                                                ButtonHelp.help = !ButtonHelp.help;
-                                            },
-                                        },
-                                        m("i.icofont-question", { "style": { "font-size": "x-large" } })
-                                    )
-                                ]),
-                                (window.opener ? [
-                                    m("div.button-menu-right-p4", { "style": { "display": "flex" } }, [
-                                        m("div.text-primary.mr-2", "Cerrar"),
-                                        m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
-                                                onclick: (e) => {
-                                                    window.close();
-                                                },
-                                            },
-                                            m("i.icofont-close", { "style": { "font-size": "x-large" } })
-                                        )
-                                    ])
-                                ] : [])
+                                ])
                             ] : [])
 
 
@@ -737,6 +720,18 @@ class MenuBoton {
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
+                            (window.opener ? [
+                                m("div.button-menu-right-p5", { "style": { "display": "flex" } }, [
+                                    m("div.text-primary.mr-2", "Cerrar"),
+                                    m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                            onclick: (e) => {
+                                                window.close();
+                                            },
+                                        },
+                                        m("i.icofont-close", { "style": { "font-size": "x-large" } })
+                                    )
+                                ])
+                            ] : [])
 
                         ] : [
                             m("div.button-menu-right-p3", { "style": { "display": "flex" } }, [
@@ -781,6 +776,18 @@ class MenuBoton {
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
+                            (window.opener ? [
+                                m("div.button-menu-right-p6", { "style": { "display": "flex" } }, [
+                                    m("div.text-primary.mr-2", "Cerrar"),
+                                    m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                            onclick: (e) => {
+                                                window.close();
+                                            },
+                                        },
+                                        m("i.icofont-close", { "style": { "font-size": "x-large" } })
+                                    )
+                                ])
+                            ] : [])
 
                         ]),
 

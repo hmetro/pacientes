@@ -60,7 +60,7 @@ class verDocPDF {
                     if (!(window.matchMedia('(min-width: 992px)').matches)) {
 
                     } else {
-                        $('#render-pdf').css("width", "100%");
+                        document.getElementById("render-pdf").style.width = "100%";
                     }
 
 
@@ -151,15 +151,21 @@ class verDocPDF {
         if (verDocPDF.url.length !== 0) {
 
             return [
-                m("div.col-lg-12.text-center[id='docPDF']", [
-                    m("div.doc-control.row.mb-0.p-0.w-100", [
+                m("div.col-12[id='docPDF']", [
 
-                        m("div.row.col-12.d-block.text-danger", { style: { "font-size": "20px" } }, [
+
+                    m("div.text-center.doc-control.mb-0.p-0.w-100.mb-2", [
+
+
+                        m("div.text-danger", { style: { "font-size": "20px" } }, [
                             " Página: ",
-                            m("span.page_num", ),
+                            m("span.page_num"),
                             " de ",
-                            m("span.page_count", )
+                            m("span.page_count")
                         ]),
+
+
+
 
                     ]),
                     m("div.doc-loader.row.col-12", { "style": { "display": "none" } },
@@ -171,13 +177,22 @@ class verDocPDF {
                             ),
                         )
                     ),
-                    m("div.doc-content.row.col-12.pd-0.", { "style": { "display": "flex" } },
-                        m("div.d-flex.justify-content-start.pd-0.mg-0.w-100",
-                            m("canvas[id='render-pdf']", {})
+                    m("div.doc-content.row.pd-0.", { "style": { "display": "flex" } },
+                        m("div.d-flex.justify-content-start.pd-0.mg-0.w-100", {
+                                "style": {
+                                    "width": "100%",
+                                    "height": "100%",
+                                    "overflow-y": (!(window.matchMedia('(min-width: 992px)').matches) ? "scroll" : "none"),
+                                },
+                            },
+                            m("canvas[id='render-pdf']", {
+                                style: { "border": "2px solid #c4d1fa" },
+
+                            })
                         )
                     ),
 
-                ]),
+                ])
 
             ]
         }
@@ -284,15 +299,18 @@ class Laboratorio {
                 class: "mt-0",
 
             }, [
-                m("img.p-1.mb-2[src='assets/logo.metrovirtual.png'][alt='Metrovirtual'][width='200rem']"),
 
-                m("h4.m-text-2",
-                    m("i.icofont-laboratory.mr-2"), "Visor de Resultados:"
+                m("div.row", [
+                    m("div.text-center.w-100", [
+                        m("img.m-1.d-inline[src='assets/logo.metrovirtual.png'][alt='Metrovirtual'][width='200rem']"),
+                        m("p.m-text-2.p-0.m-0",
+                            m("i.icofont-laboratory.mr-2"), "Visor de Resultados:"
 
-                ),
-                m("h6.text-light-dark.ff-roboto.pb-40.mb-0",
-                    "Hospital Metropolitano"
-                ),
+                        ),
+
+                    ])
+
+                ]),
 
                 m("div", {
                         class: (ButtonHelp.help ? '' : 'd-none')
@@ -425,7 +443,7 @@ class Laboratorio {
 
                     ])
                 ),
-                m("div.row.p-1",
+                m("div",
 
                     m(verDocPDF),
                 ),
@@ -531,6 +549,18 @@ class MenuBoton {
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
+                            (window.opener ? [
+                                m("div.button-menu-right-p4", { "style": { "display": "flex" } }, [
+                                    m("div.text-primary.mr-2", "Cerrar"),
+                                    m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                            onclick: (e) => {
+                                                window.close();
+                                            },
+                                        },
+                                        m("i.icofont-close", { "style": { "font-size": "x-large" } })
+                                    )
+                                ])
+                            ] : [])
                         ] : [
                             m("div.button-menu-right-p2", { "style": { "display": "flex" } }, [
                                 m("div.text-primary.mr-2", "Imprimir"),
@@ -574,6 +604,18 @@ class MenuBoton {
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
+                            (window.opener ? [
+                                m("div.button-menu-right-p5", { "style": { "display": "flex" } }, [
+                                    m("div.text-primary.mr-2", "Cerrar"),
+                                    m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                            onclick: (e) => {
+                                                window.close();
+                                            },
+                                        },
+                                        m("i.icofont-close", { "style": { "font-size": "x-large" } })
+                                    )
+                                ])
+                            ] : [])
 
                         ]),
 
@@ -652,6 +694,18 @@ class MenuBoton {
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
+                            (window.opener ? [
+                                m("div.button-menu-right-p5", { "style": { "display": "flex" } }, [
+                                    m("div.text-primary.mr-2", "Cerrar"),
+                                    m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                            onclick: (e) => {
+                                                window.close();
+                                            },
+                                        },
+                                        m("i.icofont-close", { "style": { "font-size": "x-large" } })
+                                    )
+                                ])
+                            ] : [])
 
                         ] : [
                             m("div.button-menu-right-p3", { "style": { "display": "flex" } }, [
@@ -696,6 +750,18 @@ class MenuBoton {
                                     m("i.icofont-question", { "style": { "font-size": "x-large" } })
                                 )
                             ]),
+                            (window.opener ? [
+                                m("div.button-menu-right-p6", { "style": { "display": "flex" } }, [
+                                    m("div.text-primary.mr-2", "Cerrar"),
+                                    m("btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                            onclick: (e) => {
+                                                window.close();
+                                            },
+                                        },
+                                        m("i.icofont-close", { "style": { "font-size": "x-large" } })
+                                    )
+                                ])
+                            ] : [])
 
                         ]),
 
@@ -806,9 +872,6 @@ class DetalleClinico {
             }, [
                 m("div.container", {
                         class: "bg-white",
-                        style: {
-                            "height": "2500px"
-                        }
                     },
                     m("div.row", [
 
@@ -816,7 +879,7 @@ class DetalleClinico {
                             class: "col-md-12"
                         }, [
                             m("div.tab-content.m-pb-140.", {
-                                class: "m-pt-40"
+                                class: "mt-3"
                             }, [
 
                                 m(Laboratorio),
