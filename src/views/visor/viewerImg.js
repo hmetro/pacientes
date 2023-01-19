@@ -369,6 +369,16 @@ class ViewerImg extends App {
     view() {
 
         return [
+            m("header",
+                m("div..position-relative.set-bg.breadcrumb-container", { "style": { "background-position": "center center", "background-size": "cover", "background-repeat": "no-repeat" } }, [
+                    m("div.overlay.op-P9"),
+                    m("div.container",
+                        m("div.row",
+                            m("div.col-md-12", )
+                        )
+                    )
+                ])
+            ),
             m(VisorRis)
         ];
 
