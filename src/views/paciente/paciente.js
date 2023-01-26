@@ -1473,7 +1473,19 @@ class WidgetsSV {
                                             ),
                                             m("p.mb-4.text-default.fz-poppins.text-Underline",
                                                 WidgetsSV.data[_v].FECHA
-                                            )
+                                            ),
+                                            (Formulario.adm !== 1 && _v == 'PAD' ? [
+                                                m("p.mb-4.text-white.fz-poppins.text-Underline.d-inline.pr-1.pl-1", {
+                                                    style: { "cursor": "pointer", "background-color": "#ea7600" },
+                                                    onclick: () => {
+                                                        window.open("http://172.16.253.18/report-executor/mvreport?name=USR_CURVA_PRESION_SP&cdMultiEmpresa=1&cdAtendimento=" + Formulario.adm);
+                                                    }
+                                                },
+                                                    m("span.icofont-patient-file"),
+
+                                                    "Ver Curva de Presión Sistólica / Diastólica "
+                                                )
+                                            ] : []),
                                         ])
                                     ])
                                 )
@@ -1496,7 +1508,19 @@ class WidgetsSV {
                                             ),
                                             m("p.mb-4.text-default.fz-poppins.text-Underline",
                                                 WidgetsSV.data[_v].FECHA
-                                            )
+                                            ),
+                                            (Formulario.adm !== 1 ? [
+                                                m("p.mb-4.text-white.fz-poppins.text-Underline.d-inline.pr-1.pl-1", {
+                                                    style: { "cursor": "pointer", "background-color": "#ea7600" },
+                                                    onclick: () => {
+                                                        window.open("http://172.16.253.18/report-executor/mvreport?name=USR_CURVA_FREQCARDIACA_SP&cdMultiEmpresa=1&cdAtendimento=" + Formulario.adm);
+                                                    }
+                                                },
+                                                    m("span.icofont-patient-file"),
+
+                                                    "Ver Curva de Frecuencia Cardíaca"
+                                                )
+                                            ] : [])
                                         ])
                                     ])
                                 )
@@ -1590,17 +1614,17 @@ class WidgetsSV {
                                                 WidgetsSV.data[_v].FECHA
                                             ),
                                             (Formulario.adm !== 1 ? [
-                                                m("p.mb-4.text-white.fz-poppins.text-Underline", {
+                                                m("p.mb-4.text-white.fz-poppins.text-Underline.d-inline.pr-1.pl-1", {
                                                     style: { "cursor": "pointer", "background-color": "#ea7600" },
                                                     onclick: () => {
                                                         window.open("http://172.16.253.18/report-executor/mvreport?name=USR_CURVA_TERMICA_SP&cdMultiEmpresa=1&cdAtendimento=" + Formulario.adm);
                                                     }
                                                 },
-                                                    m("span.icofont-patient-file.ml-2"),
+                                                    m("span.icofont-patient-file"),
 
                                                     "Ver Curva Térmica"
                                                 )
-                                            ] : []),
+                                            ] : [])
                                         ])
                                     ])
                                 )
