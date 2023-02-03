@@ -636,7 +636,7 @@ class MenuBoton {
                     ]
                 } else {
                     return [
-                        m("div.button-menu-right-p1", { "style": { "display": "flex" } }, [
+                        m("div.button-menu-right-p1.d-print-none", { "style": { "display": "flex" } }, [
                                 m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
                                         onclick: (e) => {
                                             e.preventDefault();
@@ -644,11 +644,24 @@ class MenuBoton {
                                         },
                                     },
                                     m("i.icofont-refresh", { "style": { "font-size": "x-large" } })
+
                                 )
 
                             ]
 
                         ),
+                        m("div.button-menu-right-p2.d-print-none", { "style": { "display": "flex", } }, [
+                            m("div.text-primary.mr-2", "Imprimir"),
+                            m("a.btn.fadeInDown-slide.position-relative.animated.pl-3.pr-3.lsp-0.no-border.bg-transparent.medim-btn.grad-bg--3.solid-btn.mt-0.text-medium.radius-pill.text-active.text-white.s-dp-1-2", {
+                                    onclick: (e) => {
+                                        e.preventDefault();
+                                        window.print();
+
+                                    },
+                                },
+                                m("i.icofont-print", { "style": { "font-size": "x-large" } })
+                            )
+                        ]),
 
 
 
