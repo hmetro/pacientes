@@ -78,7 +78,7 @@ class Imagen {
     static error = "";
     static showResultados = "d-none";
     static showButtons = "";
-    static loader = false;
+    static loader = true;
     static verResultado(url) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         verDocPDF.tabImagen = " active show ";
@@ -542,7 +542,7 @@ class Laboratorio {
     static detalle = [];
     static error = "";
     static showFor = "";
-    static loader = false;
+    static loader = true;
     static verResultado(url) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         Laboratorio.loader = true;
@@ -865,8 +865,10 @@ class DetalleResultadoPaciente {
                         ),
 
                         m(".nav.pt-md-0.flex-column.nav-pills[id='v-pills-tab'][role='tablist'][aria-orientation='vertical']", [
-                            m("a.nav-link[data-toggle='pill'][href='#v-pills-lab'][role='tab']", {
-                                onclick: () => {
+                            m("a.nav-link[data-toggle='pill'][role='tab']", {
+                                href: '#v-pills-lab',
+                                onclick: (e) => {
+                                    e.preventDefault();
                                     MenuBoton.update = "LAB";
                                 },
                                 oncreate: (el) => {
@@ -878,11 +880,12 @@ class DetalleResultadoPaciente {
                                     " Laboratorio "
                                 )
                             ]),
-                            m("a.nav-link[data-toggle='pill'][href='#v-pills-imagen'][role='tab']", {
-                                onclick: () => {
+                            m("a.nav-link[data-toggle='pill'][role='tab']", {
+                                href: '#v-pills-imagen',
+                                onclick: (e) => {
+                                    e.preventDefault();
                                     MenuBoton.update = "RX";
                                 }
-
                             }, [
                                 m("i.icofont-file-image"),
                                 m("span",
@@ -912,14 +915,6 @@ class MenuBoton {
     static typeDoc = "LAB";
     static setComand() {
 
-        if (MenuBoton.update == "SV") {
-            SignosVitales.fetch();
-        }
-
-        if (MenuBoton.update == "EV") {
-            Evoluciones.fetch();
-        }
-
         if (MenuBoton.update == "LAB") {
             Laboratorio.fetch();
         }
@@ -927,8 +922,6 @@ class MenuBoton {
         if (MenuBoton.update == "RX") {
             Imagen.fetch();
         }
-
-
 
 
     }
