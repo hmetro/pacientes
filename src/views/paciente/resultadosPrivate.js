@@ -867,6 +867,7 @@ class DetalleResultadoPaciente {
                         m(".nav.pt-md-0.flex-column.nav-pills[id='v-pills-tab'][role='tablist'][aria-orientation='vertical']", [
                             m("a.nav-link[data-toggle='pill'][role='tab']", {
                                 href: '#v-pills-lab',
+                                class: (Laboratorio.loader ? "d-none" : ""),
                                 onclick: (e) => {
                                     e.preventDefault();
                                     MenuBoton.update = "LAB";
@@ -882,6 +883,8 @@ class DetalleResultadoPaciente {
                             ]),
                             m("a.nav-link[data-toggle='pill'][role='tab']", {
                                 href: '#v-pills-imagen',
+                                class: (Imagen.loader ? "d-none" : ""),
+
                                 onclick: (e) => {
                                     e.preventDefault();
                                     MenuBoton.update = "RX";
