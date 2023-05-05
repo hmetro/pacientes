@@ -27,10 +27,13 @@ class Loader {
     buttonShow = "d-none";
     loaderInicio;
     loaderPage;
+    message;
 
     constructor(data) {
         this.loaderInicio = data.attrs.loaderInicio;
         this.loaderPage = data.attrs.loaderPage;
+        this.message = data.attrs.message;
+
 
     }
 
@@ -53,12 +56,20 @@ class Loader {
 
             m("div.preloader",
                 m("div.preloader-inner",
-                    m("div.loader-content",
-                        m("span.icon-section-wave.d-inline-block.text-active.mt-3.",),
-                    )
+                    m("div.loader-content.text-center",
+                        m("span.icon-section-wave.d-inline-block.text-active.mt-3"),
+                        m('br'),
+                        m("p", this.message),
+                    ),
+
                 ),
 
+
+
+
             ),
+
+
             m(ButtonReload),
 
         ];
@@ -74,7 +85,9 @@ class Loader {
                     )
                 ),
 
+
             ),
+
             m(ButtonReload),
         ];
     }

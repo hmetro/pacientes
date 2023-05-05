@@ -23,6 +23,7 @@
     },
     "homepage": "https://github.com/hmetro/pacientes.git#readme",
     "dependencies": {
+        "hammerjs": "^2.0.8",
         "mithril": "^2.2.2",
         "print-js": "^1.6.0"
     },
