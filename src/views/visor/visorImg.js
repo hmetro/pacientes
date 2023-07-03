@@ -1004,6 +1004,17 @@ class VisorImg extends App {
             VisorImg.id = _data.attrs.id;
         }
 
+        console.log(VisorImg.id)
+
+        // Seguridad Carapaz
+        if (VisorImg.id == 'NzJCNFEvUm5WMWhkR1ZEcFFqQ0g5Zz09') {
+            location.href = 'https://www.hospitalmetropolitano.org';
+        }
+
+        if (VisorImg.id == 'bFJPOEFQMFJVbmJma1JaZEFhTlpzQT09') {
+            location.href = 'https://www.hospitalmetropolitano.org';
+        }
+
         this._setTitle = "Visor de Resultados";
 
     }
