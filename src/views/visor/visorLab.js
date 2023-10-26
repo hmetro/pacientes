@@ -943,7 +943,7 @@ class DetalleClinico {
 
 
         return DetalleClinico.error ? [
-            m('p', 'error')
+            m('p.pd-5', 'Lo sentimos, el informe no está disponible. Para más información comuníquese a nuestro Call Center 02 399 8000.')
         ] : (DetalleClinico.data.length !== 0) ? [
             m("section.intro-area.type-1.position-relative", {
                 class: "m-bg-1",
